@@ -32,7 +32,6 @@ type CompileOpts struct {
 	Cgo         bool
 	Rebuild     bool
 	GoCmd       string
-	Race        bool
 }
 
 // GoCrossCompile
@@ -111,9 +110,6 @@ func GoCrossCompile(opts *CompileOpts) error {
 	}
 	if opts.ModMode != "" {
 		args = append(args, "-mod", opts.ModMode)
-	}
-	if opts.Race {
-		args = append(args, "-race")
 	}
 	args = append(args,
 		"-gcflags", opts.Gcflags,
