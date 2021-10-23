@@ -67,6 +67,7 @@ var (
 		{"linux", "arm64", false},
 		{"linux", "ppc64", false},
 		{"linux", "ppc64le", false},
+		{"linux", "riscv64", true},
 	}...)
 
 	Platforms_1_6 = append(Platforms_1_5, []Platform{
