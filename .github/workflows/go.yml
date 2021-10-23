@@ -24,7 +24,7 @@ jobs:
       run: go test -v ./...
       
     - name: Cross build
-      run: mkdir release && gox -ldflags="-w -s" -output="release/{{.Dir}}_{{.OS}}_{{.Arch}}"
+      run: mkdir release && ./gox -ldflags="-w -s" -output="release/{{.Dir}}_{{.OS}}_{{.Arch}}"
       
     - name: Publish the Release
       uses: softprops/action-gh-release@v1
