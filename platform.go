@@ -63,11 +63,10 @@ var (
 
 	Platforms_1_5 = append(Platforms_1_4, []Platform{
 		{"darwin", "arm", false},
-		{"darwin", "arm64", false},
-		{"linux", "arm64", false},
+		{"darwin", "arm64", true},
+		{"linux", "arm64", true},
 		{"linux", "ppc64", false},
 		{"linux", "ppc64le", false},
-		{"linux", "riscv64", true},
 	}...)
 
 	Platforms_1_6 = append(Platforms_1_5, []Platform{
@@ -97,7 +96,25 @@ var (
 	// no new platforms in 1.10
 	Platforms_1_10 = Platforms_1_9
 
-	PlatformsLatest = Platforms_1_10
+	// no new platforms in 1.11
+	Platforms_1_11 = Platforms_1_10
+
+	// no new platforms in 1.12
+	Platforms_1_12 = Platforms_1_11
+
+	Platforms_1_13 = Platforms_1_12
+
+	Platforms_1_14 = Platforms_1_13
+
+	Platforms_1_15 = append(Platforms_1_14, []Platform{
+		{"linux", "riscv64", true},
+	}...)
+
+	Platforms_1_16 = Platforms_1_15
+
+	Platforms_1_17 = Platforms_1_16
+
+	PlatformsLatest = Platforms_1_17
 )
 
 // SupportedPlatforms returns the full list of supported platforms for
@@ -132,6 +149,13 @@ func SupportedPlatforms(v string) []Platform {
 		{">= 1.8, < 1.9", Platforms_1_8},
 		{">= 1.9, < 1.10", Platforms_1_9},
 		{">=1.10, < 1.11", Platforms_1_10},
+		{">=1.11, < 1.12", Platforms_1_11},
+		{">=1.12, < 1.13", Platforms_1_12},
+		{">=1.13, < 1.14", Platforms_1_13},
+		{">=1.14, < 1.15", Platforms_1_14},
+		{">=1.15, < 1.16", Platforms_1_15},
+		{">=1.16, < 1.17", Platforms_1_16},
+		{">=1.17, < 1.18", Platforms_1_17},
 	}
 
 	for _, p := range platforms {
