@@ -25,6 +25,23 @@ func (p *Platform) String() string {
 	return fmt.Sprintf("%s/%s", p.OS, p.Arch)
 }
 
+func removeElements(from []Platform, elements []Platform) []Platform {
+	// make sure we don't change the passed underlying array
+	np := make([]Platform, len(from), len(from))
+	copy(np, from)
+
+	for _, toRemove := range elements {
+		for k, v := range np {
+			if v.Arch == toRemove.Arch && v.OS == toRemove.OS {
+				np = append(np[:k], np[k+1:]...)
+				break
+			}
+		}
+	}
+
+	return np
+}
+
 var (
 	Platforms_1_0 = []Platform{
 		{"darwin", "amd64", true},

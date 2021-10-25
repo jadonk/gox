@@ -86,3 +86,88 @@ func TestMIPS(t *testing.T) {
 	}
 
 }
+
+func Test_removeElement(t *testing.T) {
+	type args struct {
+		from     []Platform
+		elements []Platform
+	}
+	tests := []struct {
+		name string
+		args args
+		want []Platform
+	}{
+		{
+			name: "removing existing element",
+			args: args{
+				from: []Platform{
+					{"windows", "386", false},
+					{"windows", "amd64", true},
+					{"windows", "arm64", true},
+					{"linux", "386", false},
+					{"linux", "amd64", true},
+					{"linux", "arm64", true},
+				},
+				elements: []Platform{{"windows", "arm64", true}},
+			},
+			want: []Platform{
+				{"windows", "386", false},
+				{"windows", "amd64", true},
+				{"linux", "386", false},
+				{"linux", "amd64", true},
+				{"linux", "arm64", true},
+			}},
+		{
+			name: "removing element that doesn't exist",
+			args: args{
+				from: []Platform{
+					{"windows", "386", false},
+					{"windows", "amd64", true},
+					{"windows", "arm64", true},
+					{"linux", "riscv64", false},
+					{"linux", "amd64", true},
+					{"linux", "arm64", true},
+				},
+				elements: []Platform{{"linux", "386", true}},
+			},
+			want: []Platform{
+				{"windows", "386", false},
+				{"windows", "amd64", true},
+				{"windows", "arm64", true},
+				{"linux", "riscv64", false},
+				{"linux", "amd64", true},
+				{"linux", "arm64", true},
+			},
+		},
+		{
+			name: "removing multiple elements",
+			args: args{
+				from: []Platform{
+					{"windows", "386", false},
+					{"windows", "amd64", true},
+					{"windows", "arm64", true},
+					{"linux", "riscv64", false},
+					{"linux", "amd64", true},
+					{"linux", "arm64", true},
+				},
+				elements: []Platform{
+					{"windows", "386", true},
+					{"windows", "amd64", true},
+					{"linux", "arm64", true},
+				},
+			},
+			want: []Platform{
+				{"windows", "arm64", true},
+				{"linux", "riscv64", false},
+				{"linux", "amd64", true},
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := removeElements(tt.args.from, tt.args.elements); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("removeElements() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
