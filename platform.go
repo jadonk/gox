@@ -44,6 +44,7 @@ func removeElements(from []Platform, elements []Platform) []Platform {
 
 var (
 	Platforms_1_0 = []Platform{
+		{"darwin", "386", true},
 		{"darwin", "amd64", true},
 		{"linux", "386", true},
 		{"linux", "amd64", true},
@@ -113,23 +114,40 @@ var (
 	// no new platforms in 1.10
 	Platforms_1_10 = Platforms_1_9
 
-	// no new platforms in 1.11
-	Platforms_1_11 = Platforms_1_10
+	Platforms_1_11 = append(Platforms_1_10, []Platform{
+		{"js", "wasm", true},
+	}...)
 
 	// no new platforms in 1.12
 	Platforms_1_12 = Platforms_1_11
 
+	// no new platforms in 1.12
 	Platforms_1_13 = Platforms_1_12
 
-	Platforms_1_14 = Platforms_1_13
+	Platforms_1_14 = removeElements(Platforms_1_13, []Platform{
+		// Native Client was removed in 1.14 (https://golang.org/doc/go1.14#nacl)
+		{"nacl", "amd64", false},
+		{"nacl", "amd64p32", false},
+		{"nacl", "arm", false},
+	})
 
-	Platforms_1_15 = append(Platforms_1_14, []Platform{
-		{"linux", "riscv64", true},
-	}...)
+	Platforms_1_15 = append(
+		removeElements(Platforms_1_14, []Platform{
+			// darwin/386 is unsupported from Go 1.15 (https://golang.org/doc/go1.15#darwin)
+			{"darwin", "386", true},
+		}),
+		[]Platform{
+			{"linux", "riscv64", true},
+		}...)
 
-	Platforms_1_16 = Platforms_1_15
+	Platforms_1_16 = append(Platforms_1_15,
+		Platform{"ios", "amd64", false}, // iOS simulator on macOS devices with x86 CPU
+		Platform{"ios", "arm64", false}, // regular iOS devices
+	)
 
-	Platforms_1_17 = Platforms_1_16
+	Platforms_1_17 = append(Platforms_1_16,
+		Platform{"windows", "arm64", true},
+	)
 
 	PlatformsLatest = Platforms_1_17
 )
