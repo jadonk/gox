@@ -1,5 +1,14 @@
 # Gox - Simple Go Cross Compilation
 
+## About this fork
+This is a fork of the [original gox](https://github.com/mitchellh/gox). I might open a PR in the future to get the changes to the original, but for now I keep it as my own fork, as I just needed the changes for my projects.
+
+**Changes include:**
+* Support for **new platforms**, such as **RISC-V and Apple's M1-powered computers**
+  * Also gox now acknowledges the deprecation of some platforms, such as Native Client or darwin/386, and allows usage of such platforms only on older Go versions.
+* Working **GitHub CI** that creates **up-to-date releases for all major platforms**, so you can easily use gox in your CI/CD routines without having to build it yourself.
+* Some potential bug fixes
+
 Gox is a simple, no-frills tool for Go cross compilation that behaves a
 lot like standard `go build`. Gox will parallelize builds for multiple
 platforms. Gox will also build the cross-compilation toolchain for you.
