@@ -133,8 +133,9 @@ var (
 
 	Platforms_1_15 = append(
 		removeElements(Platforms_1_14, []Platform{
-			// darwin/386 is unsupported from Go 1.15 (https://golang.org/doc/go1.15#darwin)
+			// darwin/386, darwin/arm is unsupported from Go 1.15 (https://golang.org/doc/go1.15#darwin)
 			{"darwin", "386", true},
+			{"darwin", "arm", false},
 		}),
 		[]Platform{
 			{"linux", "riscv64", true},
