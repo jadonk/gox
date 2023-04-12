@@ -62,6 +62,7 @@ var (
 		{"linux", "386", true},
 		{"linux", "amd64", true},
 		{"linux", "arm", true},
+		{"linux", "riscv64", true},
 		{"freebsd", "386", true},
 		{"freebsd", "amd64", true},
 		{"openbsd", "386", true},
